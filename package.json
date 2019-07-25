@@ -1,0 +1,19 @@
+{
+  "name": "ga-virtualdevice-proxy",
+  "version": "1.0.0",
+  "description": "Google Assistant Virtual Device Proxy",
+  "main": "client.js",
+  "scripts": {
+    "start": "npm run build && node client.js",
+    "build": "npx tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ole1986",
+  "license": "ISC",
+  "dependencies": {
+    "@types/ws": "^6.0.1",
+    "btoa": "^1.2.1",
+    "node-fetch": "^2.6.0",
+    "ws": "7.1.1"
+  }
+}

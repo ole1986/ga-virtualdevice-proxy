@@ -1,0 +1,15 @@
+{
+    "REMOTE_HOST": "",
+    "USER_ID": "",
+    "ALLOWED_MODULES": [
+        "ShutterFhemGeneric",
+        "ShutterFhemBecker",
+        "ShutterBecker"
+    ],
+    "fhem": {
+        "url": "",
+        "csrf": "",
+        "username": null,
+        "password": null
+    }
+}
