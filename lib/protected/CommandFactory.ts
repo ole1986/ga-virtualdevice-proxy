@@ -1,9 +1,11 @@
 import * as config from '../../config.json';
 import { CommandBaseInterface } from './CommandAbstract';
 import * as store from '../store';
+import { AssistantProxyClient } from './AssistantProxyClient.js';
 
 export class CommandFactory {
     static _allowedModules: Array<string> = config.ALLOWED_MODULES;
+    static Proxy: AssistantProxyClient;
 
     public static resolveModule(msg: string): CommandBaseInterface {
         var data = JSON.parse(msg);

@@ -6,6 +6,7 @@ export interface CommandBaseInterface {
     getSettings(): any;
     getDevices(): any;
     runCommand(): Promise<boolean>;
+    sendResponse(): Promise<any>;
     getFHEMConfig(): any;
     getModuleConfig(): any;
     getModuleName(): string;
@@ -76,5 +77,9 @@ export class CommandBase implements CommandBaseInterface {
     public async runCommand(): Promise<boolean> {
         console.log("You are running from the abstraction class");
         return false;
+    }
+
+    public async sendResponse(): Promise<any> {
+        console.warn("No implemented for module " + this.getModuleName());
     }
 }
