@@ -21,6 +21,11 @@
             "runOptions": {
                 "runOn": "folderOpen"
             }
+        },
+        {
+            "type": "npm",
+            "script": "start",
+            "problemMatcher": []
         }
     ]
 }
