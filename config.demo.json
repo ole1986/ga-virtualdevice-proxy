@@ -4,7 +4,9 @@
     "ALLOWED_MODULES": [
         "ShutterFhemGeneric",
         "ShutterFhemBecker",
-        "ShutterBecker"
+        "ShutterBecker",
+        "SwitchFhemGeneric",
+        "LightFhemGeneric"
     ],
     "fhem": {
         "url": "",
