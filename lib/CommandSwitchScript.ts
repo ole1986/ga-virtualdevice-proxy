@@ -17,7 +17,7 @@ export class CommandSwitchScript extends CommandBase {
                 args.push('--alias "' + item.alias + '"');
                 let cmdlet = config.command + ' ' + args.join(' ')
                 console.log('### Running ' + cmdlet);
-                execSync(cmdlet);;
+                execSync(cmdlet);
             });
 
             return true;
@@ -28,8 +28,10 @@ export class CommandSwitchScript extends CommandBase {
     }
 
     public validateConfig(conf): boolean {
-        if (!conf)
+        if (!conf) {
+            console.error("Missing module section in configuration file for " + this.getModuleName());
             return false;
+        }
 
         if(!conf.command) {
             console.error("no command defined in configuration for " + this.getModuleName());

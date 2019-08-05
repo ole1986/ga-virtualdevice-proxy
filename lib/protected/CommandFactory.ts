@@ -35,6 +35,12 @@ export class CommandFactory {
         }
 
         var moduleClassDefinition = 'Command' + fullModuleName;
+
+        if(!store[moduleClassDefinition]) {
+            console.error("Module '" + moduleClassDefinition + "' is unavailable.");
+            return;
+        }
+
         return new store[moduleClassDefinition](moduleName, deviceType, data);
     }
 }
