@@ -1,0 +1,49 @@
+<p>
+    Kann verwendet werden um Schalter über die Kommandozeile auszuführen. <br />
+    Es ist erforderlich einen Kommandozeilen - Aufruf in der config.json von "ga-virtualdevice-proxy" für das Module zu konfigurieren.
+    <code>
+        {
+            "SwitchScript": {
+                "command": "/home/pi/someCommand"
+            }
+        }
+    </code>
+</p>
+<p>
+    Die übermittelten Parameter werden als Argument dem Skript angehängt umd muss entsprechend behandelt werden. Ein Beispielskript<br />
+    <code>
+        #!/bin/bash
+
+        while [[ $# -gt 0 ]]
+        do
+        key="$1"
+        
+        case $key in
+            --alias)
+            ALIAS="$2"
+            shift # past argument
+            shift # past value
+            ;;
+            --on)
+            ON="$2"
+            shift # past argument
+            shift # past value
+            ;;
+            --room)
+            ROOM="$2"
+            shift # past argument
+            shift # past value
+            ;;
+            *)    # unknown option
+            POSITIONAL+=("$1") # save it in an array for later
+            shift # past argument
+            ;;
+        esac
+        done
+        
+        [[ $ON == "true" ]] && ONBIT = 1 || ONBIT = 0
+        
+        echo "Alias=$ALIAS Room=$ROOM ON/OFF: $ONBIT"
+    </code>
+</p>
+<a href="https://www.github.com/ole1986/ga-virtualdevice-proxy/lib/CommandSwitchScript.ts" target="_blank">Weitere Informationen</a>

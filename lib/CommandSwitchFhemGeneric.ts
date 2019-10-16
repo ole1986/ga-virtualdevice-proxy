@@ -11,7 +11,7 @@ export class CommandSwitchFhemGeneric extends CommandFhem {
             // build commands
             var cmdList = [];
 
-            var OnOff = params.start ? 'on': 'off';
+            var OnOff = params.on ? 'on': 'off';
 
             devices.forEach(item => {
                 cmdList.push('set '+item.fhem_device +' ' + OnOff);
