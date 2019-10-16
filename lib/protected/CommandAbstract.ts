@@ -1,4 +1,5 @@
 import * as config from '../../config.json';
+import { CommandFactory } from './CommandFactory.js';
 
 export interface CommandBaseInterface {
     getModes(): any;
@@ -6,7 +7,8 @@ export interface CommandBaseInterface {
     getSettings(): any;
     getDevices(): any;
     runCommand(): Promise<boolean>;
-    sendResponse(): Promise<any>;
+    queryStatus(): Promise<object>;
+    sendStatus(): Promise<void>;
     getFHEMConfig(): any;
     getModuleConfig(): any;
     getModuleName(): string;
@@ -79,7 +81,18 @@ export class CommandBase implements CommandBaseInterface {
         return false;
     }
 
-    public async sendResponse(): Promise<any> {
-        console.warn("No implemented for module " + this.getModuleName());
+    public async queryStatus(): Promise<object> {
+        return null;
+    }
+
+    public async sendStatus(): Promise<any> {
+        let queryResult = await this.queryStatus();
+
+        if(!queryResult) {
+            console.warn("Querying status result into an empty value for " + this.getModuleName() + ". Make sure you have implemented the queryStatus() method");
+            return;
+        }
+
+        CommandFactory.Proxy.SendStatus(queryResult);
     }
 }
