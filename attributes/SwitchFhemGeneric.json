@@ -1,0 +1,22 @@
+{
+    "devices":{
+        "fhem_device": {
+            "lang": {
+                "default": "FHEM Device",
+                "de": "FHEM Gerät"
+            },
+            "type": "text",
+            "hint": "FHEM device defintion name (E.g. Shutter_Frontside_1)",
+            "validation": "^\\w+$"
+        },
+        "fhem_device_type": {
+            "lang": {
+                "default": "FHEM Device Type",
+                "de": "FHEM Gerätetyp"
+            },
+            "type": "text",
+            "hint": "FHEM device module (E.g. IT for InterTechno)",
+            "validation": "^\\w+$"
+        }
+    }
+}
