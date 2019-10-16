@@ -1,6 +1,3 @@
-import * as fetch from 'node-fetch';
-import * as btoa from 'btoa';
-import { CommandFactory } from "./protected/CommandFactory";
 import { CommandFhem } from "./protected/CommandFhem";
 
 export class CommandLightFhemGeneric extends CommandFhem {

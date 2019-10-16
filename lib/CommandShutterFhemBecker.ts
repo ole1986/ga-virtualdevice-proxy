@@ -1,6 +1,3 @@
-import { CommandBase } from "./protected/CommandAbstract";
-import * as fetch from 'node-fetch';
-import * as btoa from 'btoa';
 import { CommandFhem } from "./protected/CommandFhem";
 
 export class CommandShutterFhemBecker extends CommandFhem {
