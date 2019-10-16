@@ -6,6 +6,7 @@
                 "de": "Kanal"
             },
             "type": "number",
+            "hint": "The channel number between 1-15 (15 = broadcast)",
             "validation": "^\\d{1,2}$"
         }
     }

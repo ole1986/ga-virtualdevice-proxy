@@ -5,7 +5,7 @@
                 "default": "FHEM Device",
                 "de": "FHEM Gerät"
             },
-            "default": "Shutter",
+            "hint": "FHEM device definition name (E.g Shutter)",
             "type": "string"
         }
     },
@@ -16,7 +16,7 @@
                 "de": "Kanal"
             },
             "type": "number",
-            "default": "",
+            "hint": "The channel number between 1-15 (15 = broadcast)",
             "validation": "^\\d{1,2}$"
         }
     }

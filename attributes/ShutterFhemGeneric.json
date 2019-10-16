@@ -1,10 +1,13 @@
 {
-    "channel": {
-        "lang": {
-            "default": "Channel",
-            "de": "Kanal"
-        },
-        "type": "number",
-        "validation": "^\\d{1,2}$"
+    "devices":{
+        "fhem_device": {
+            "lang": {
+                "default": "FHEM Device",
+                "de": "FHEM Gerät"
+            },
+            "type": "text",
+            "hint": "FHEM device defintion name (E.g. Shutter_Frontside_1)",
+            "validation": "^\\w+$"
+        }
     }
 }
