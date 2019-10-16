@@ -2,11 +2,8 @@ import * as WebSocket from 'ws';
 import { CommandFactory } from './CommandFactory';
 import * as config from '../../config.json';
 
-function getTimestamp() {
-    return Math.floor(new Date().getTime() / 1000);
-}
-
 export class AssistantProxyClient extends WebSocket {
+    private _version: number = 1;
     private _responseTimeout: number = 10; // abort connection when ping response took to long
     private _keepAliveInterval: number = 60; // requesting KeepAlive every minute
     private _timeoutTimer;
@@ -26,9 +23,9 @@ export class AssistantProxyClient extends WebSocket {
 
         this.on('open', this.loginUser);
         this.on('pong', () => this.KeepAlive());
-        this.on('close', () => {
+        this.on('close', (code, msg) => {
             clearInterval(this._timer);
-            console.log('Connection closed');
+            console.log('Connection closed. ' + msg);
         });
 
         this.on('message', (x) => this.parseMessage(x));
@@ -72,7 +69,7 @@ export class AssistantProxyClient extends WebSocket {
 
     private loginUser() {
         console.log('Logging in...');
-        this.send('LOGN ' + config.USER_ID);
+        this.send('LOGN ' + config.USER_ID + ' ' + this._version);
     }
 
     public SendStatus(text: object) {
