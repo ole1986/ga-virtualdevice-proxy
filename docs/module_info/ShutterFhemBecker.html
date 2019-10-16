@@ -2,14 +2,14 @@
     Erfordert einen Becker Centronic Stick und das centronic-py script. <br />
     Zudem muss FHEM installiert sein und nachfolgende Definition verwenden:
     <code>
-        defmod Shutter dummy
-        attr Shutter userattr CENTRONIC_PATH
-        attr Shutter CENTRONIC_PATH sudo -u pi /home/pi/centronic-py/centronic-stick.py
-        attr Shutter readingList number
-        attr Shutter room Becker
-        attr Shutter setList number:0,1,2,3,4,5,6,7,8,9,15
-        attr Shutter webCmd number:UP:HALT:DOWN:DOWN2
-        attr Shutter webCmdLabel Nummer:Hoch:Anhalten:Runter:Schutz
+defmod Shutter dummy
+attr Shutter userattr CENTRONIC_PATH
+attr Shutter CENTRONIC_PATH sudo -u pi /home/pi/centronic-py/centronic-stick.py
+attr Shutter readingList number
+attr Shutter room Becker
+attr Shutter setList number:0,1,2,3,4,5,6,7,8,9,15
+attr Shutter webCmd number:UP:HALT:DOWN:DOWN2
+attr Shutter webCmdLabel Nummer:Hoch:Anhalten:Runter:Schutz
     </code>
     <a href='https://www.github.com/ole1986/centronic-py' target='_blank'>Weitere Informationen</a>
 </p>
