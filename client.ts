@@ -1,6 +1,8 @@
 import * as config from './config.json';
 import { AssistantProxyClient } from './lib/protected/AssistantProxyClient.js';
 
+import 'log-timestamp';
+
 if(!config) {
    console.error("No configuration found"); 
    process.exit(1);

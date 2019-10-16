@@ -9,17 +9,18 @@ export class AssistantProxyClient extends WebSocket {
         this.on('connectFailed', function (error) {
             console.log('Connect Error: ' + error.toString());
         });
-        
+
         this.on('open', this.loginUser);
-        
-        this.on('error', function(err) {
+        this.on('ping', () => { console.log('.'); });
+
+        this.on('error', function (err) {
             console.error(err);
         });
-        
+
         this.on('close', function () {
             console.log('Connection closed');
         });
-        
+
         this.on('message', (x) => this.parseMessage(x));
 
         CommandFactory.Proxy = this;
@@ -30,7 +31,7 @@ export class AssistantProxyClient extends WebSocket {
         let msg = data.slice(5);
         let moduleClass;
 
-        switch(cmd) {
+        switch (cmd) {
             default:
                 break;
             case 'LOOK':
