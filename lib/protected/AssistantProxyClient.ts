@@ -57,6 +57,9 @@ export class AssistantProxyClient extends WebSocket {
         switch (cmd) {
             default:
                 break;
+            case 'QUER':
+                moduleClass = CommandFactory.resolveModule(msg.toString());
+                await moduleClass.sendStatus();
             case 'LOOK':
                 console.log("login ok");
                 break;

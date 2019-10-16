@@ -20,7 +20,7 @@ export class CommandLightFhemGeneric extends CommandFhem {
             var command = cmdList.join(' ; ');
 
             await this.requestFHEM(command);
-            await this.sendStatus();
+            //await this.sendStatus();
 
             return true;
         } catch (err) {

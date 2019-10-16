@@ -4,7 +4,7 @@
   "description": "Google Assistant Virtual Device Proxy",
   "main": "client.js",
   "scripts": {
-    "start": "npm run build && node client.js",
+    "start": "node client.js",
     "build": "npx tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

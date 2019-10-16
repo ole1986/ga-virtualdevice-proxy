@@ -43,7 +43,6 @@ export class CommandFhem extends CommandBase {
     }
 
     public async queryStatus(): Promise<object> {
-        var config = this.getFHEMConfig();
         let devices = this.getDevices();
 
         let deviceResponseStruct = {
