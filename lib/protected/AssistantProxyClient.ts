@@ -5,7 +5,7 @@ import * as config from '../../config.json';
 export class AssistantProxyClient extends WebSocket {
     private _version: number = 1;
     private _responseTimeout: number = 10; // abort connection when ping response took to long
-    private _keepAliveInterval: number = 60; // requesting KeepAlive every minute
+    private _keepAliveInterval: number = 60 * 5; // requesting KeepAlive every 5 minutes
     private _timeoutTimer;
     private _timer;
 
