@@ -1,0 +1,10 @@
+{
+    "channel": {
+        "lang": {
+            "default": "Channel",
+            "de": "Kanal"
+        },
+        "type": "number",
+        "validation": "^\\d{1,2}$"
+    }
+}

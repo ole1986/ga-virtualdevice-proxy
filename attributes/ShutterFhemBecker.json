@@ -1,0 +1,23 @@
+{
+    "settings": {
+        "prefix": {
+            "lang": {
+                "default": "FHEM Device",
+                "de": "FHEM Gerät"
+            },
+            "default": "Shutter",
+            "type": "string"
+        }
+    },
+    "devices":{
+        "channel": {
+            "lang": {
+                "default": "Channel",
+                "de": "Kanal"
+            },
+            "type": "number",
+            "default": "",
+            "validation": "^\\d{1,2}$"
+        }
+    }
+}
