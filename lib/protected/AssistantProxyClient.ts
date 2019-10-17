@@ -3,7 +3,7 @@ import { CommandFactory } from './CommandFactory';
 import * as config from '../../config.json';
 
 export class AssistantProxyClient extends WebSocket {
-    private _version: number = 2;
+    private _version: number = 3;
     private _responseTimeout: number = 10; // abort connection when ping response took to long
     private _keepAliveInterval: number = 60 * 5; // requesting KeepAlive every 5 minutes
     private _timeoutTimer;
@@ -72,7 +72,12 @@ export class AssistantProxyClient extends WebSocket {
 
     private loginUser() {
         console.log('Logging in...');
-        this.send('LOGN ' + config.USER_ID + ' ' + this._version);
+        let data = {
+            USER_ID: config.USER_ID,
+            PRIMARY: config.PRIMARY,
+            VERSION: this._version,
+        }
+        this.send('LOGN ' + JSON.stringify(data));
     }
 
     public SendStatus(text: object) {

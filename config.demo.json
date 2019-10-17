@@ -1,6 +1,7 @@
 {
     "REMOTE_HOST": "",
     "USER_ID": "",
+    "PRIMARY": true,
     "ALLOWED_MODULES": [
         "ShutterFhemGeneric",
         "ShutterFhemBecker",

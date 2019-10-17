@@ -1,7 +1,7 @@
 import * as fetch from 'node-fetch';
 import * as btoa from 'btoa';
 import * as config from '../../config.json';
-import { CommandBase } from './CommandAbstract.js';
+import { CommandBase } from './CommandBase.js';
 
 export class CommandFhem extends CommandBase {
 

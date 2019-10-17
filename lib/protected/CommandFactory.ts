@@ -1,5 +1,5 @@
 import * as config from '../../config.json';
-import { CommandBaseInterface } from './CommandAbstract';
+import { CommandBaseInterface } from './CommandBase';
 import * as store from '../store';
 import { AssistantProxyClient } from './AssistantProxyClient.js';
 

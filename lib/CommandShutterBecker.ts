@@ -1,4 +1,4 @@
-import { CommandBase } from "./protected/CommandAbstract";
+import { CommandBase } from "./protected/CommandBase";
 import { execSync } from "child_process";
 import { existsSync } from "fs";
 
