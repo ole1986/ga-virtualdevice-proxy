@@ -53,13 +53,13 @@ export class CommandFhem extends CommandBase {
         let result = {};
         
         devices.forEach(x => {
-            cmdList.push("ReadingsVal(\""+ x.fhem_device +"\", \"state\", \"\")");
+            cmdList.push("InternalVal(\""+ x.fhem_device +"\", \"STATE\", \"\")");
         });
 
-        var command = "{ " + cmdList.join('."|"') + " }";
+        var command = "{ " + cmdList.join('."|".') + " }";
 
         let content = await this.requestFHEM(command);
-        var contentParts = content.split('|');
+        var contentParts = content.trim().split('|');
         let parsedReadings = this.parseReadings(contentParts);
 
         for(var i in devices) {
