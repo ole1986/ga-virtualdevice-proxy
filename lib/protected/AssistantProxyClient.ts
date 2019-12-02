@@ -60,6 +60,7 @@ export class AssistantProxyClient extends WebSocket {
             case 'QUER':
                 moduleClass = CommandFactory.resolveModule(msg.toString());
                 await moduleClass.sendStatus();
+                break;
             case 'LOOK':
                 console.log("login ok");
                 break;
