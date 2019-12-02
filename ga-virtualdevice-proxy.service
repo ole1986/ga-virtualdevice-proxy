@@ -11,4 +11,4 @@ WorkingDirectory=/home/pi/ga-virtualdevice-proxy
 ExecStart=/usr/bin/npm start
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
