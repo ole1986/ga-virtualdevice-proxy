@@ -17,10 +17,7 @@
             "option": "watch",
             "problemMatcher": [
                 "$tsc-watch"
-            ],
-            "runOptions": {
-                "runOn": "folderOpen"
-            }
+            ]
         },
         {
             "type": "npm",

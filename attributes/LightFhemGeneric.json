@@ -8,6 +8,13 @@
             "type": "text",
             "hint": "FHEM device defintion name (E.g. LIGHT_IT_TV)",
             "validation": "^\\w+$"
+        },
+        "dimmable": {
+            "lang": {
+                "default": "Is Dimmable"
+            },
+            "type": "checkbox",
+            "hint": "Enable dimming supported"
         }
     }
 }
