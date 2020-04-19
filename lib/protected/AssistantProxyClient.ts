@@ -1,6 +1,7 @@
 import * as WebSocket from 'ws';
 import { CommandFactory } from './CommandFactory';
 import * as config from '../../config.json';
+import { ICommandBase } from './CommandBase';
 
 export class AssistantProxyClient extends WebSocket {
     private _version: number = 3;
@@ -8,9 +9,14 @@ export class AssistantProxyClient extends WebSocket {
     private _keepAliveInterval: number = 60 * 5; // requesting KeepAlive every 5 minutes
     private _timeoutTimer;
     private _timer;
+    private _onLoggedIn: Function;
+    private _isPrimaryConnection: boolean;
 
-    constructor() {
+    constructor(isPrimary: boolean, onLoggedIn: EventHandlerNonNull = undefined) {
         super(config.REMOTE_HOST);
+
+        this._isPrimaryConnection = isPrimary;
+        this._onLoggedIn = onLoggedIn;
 
         this.on('connectFailed', err => {
             clearInterval(this._timer);
@@ -22,7 +28,7 @@ export class AssistantProxyClient extends WebSocket {
         });
 
         this.on('open', this.loginUser);
-        this.on('pong', () => this.KeepAlive());
+        this.on('pong', this.KeepAlive);
         this.on('close', (code, msg) => {
             clearInterval(this._timer);
             console.log('Connection closed. ' + msg);
@@ -33,6 +39,10 @@ export class AssistantProxyClient extends WebSocket {
         this._timer = setInterval(() => this.pingServer(), this._keepAliveInterval * 1000);
 
         CommandFactory.Proxy = this;
+
+        if (isPrimary) {
+            CommandFactory.loadModules();
+        }
     }
 
     public KeepAlive() {
@@ -52,7 +62,7 @@ export class AssistantProxyClient extends WebSocket {
     private async parseMessage(data: WebSocket.Data) {
         let cmd = data.slice(0, 4);
         let msg = data.slice(5);
-        let moduleClass;
+        let moduleClass: ICommandBase;
 
         switch (cmd) {
             default:
@@ -61,8 +71,14 @@ export class AssistantProxyClient extends WebSocket {
                 moduleClass = CommandFactory.resolveModule(msg.toString());
                 await moduleClass.sendStatus();
                 break;
+            case 'DEVL':
+                CommandFactory.syncDevices(msg.toString());
+                break;
             case 'LOOK':
                 console.log("login ok");
+                if (this._onLoggedIn) {
+                    this._onLoggedIn();
+                }
                 break;
             case 'CMDL':
                 moduleClass = CommandFactory.resolveModule(msg.toString());
@@ -75,13 +91,17 @@ export class AssistantProxyClient extends WebSocket {
         console.log('Logging in...');
         let data = {
             USER_ID: config.USER_ID,
-            PRIMARY: config.PRIMARY,
+            PRIMARY: this._isPrimaryConnection,
             VERSION: this._version,
         }
         this.send('LOGN ' + JSON.stringify(data));
     }
 
-    public SendStatus(text: object) {
-        this.send('STAT ' + JSON.stringify(text));
+    public SendReport(data: object) {
+        this.send('REPT ' + JSON.stringify(data));
+    }
+
+    public SendStatus(data: object) {
+        this.send('STAT ' + JSON.stringify(data));
     }
 }

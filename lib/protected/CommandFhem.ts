@@ -1,9 +1,40 @@
 import * as fetch from 'node-fetch';
+import * as md5 from 'md5';
 import * as btoa from 'btoa';
 import * as config from '../../config.json';
-import { CommandBase } from './CommandBase.js';
+import { CommandBase, ICommandSync } from './CommandBase.js';
+import { CommandFactory } from './CommandFactory';
 
-export class CommandFhem extends CommandBase {
+export class CommandFhem extends CommandBase implements ICommandSync {
+    static hashDevices: string;
+
+    public async onDevicesSynced(): Promise<void> {
+        const devices = this.getSyncedDevices();
+
+        // filter out only fhem related devices
+        const fhemDevices = devices.filter(x => x.hasOwnProperty('fhem_device'));
+        // prepare regulate expressed notifier for FHEM
+        const regexDevices = "(" + fhemDevices.map(x => x.fhem_device).join('|') + ")";
+        const hash = md5(regexDevices);
+
+        if (hash === CommandFhem.hashDevices) {
+            // ignore when its the same list
+            return;
+        }
+
+        // update hash
+        CommandFhem.hashDevices = hash;
+
+        const clientPath = process.cwd() + '/client.js';
+
+        const result = await this.requestFHEM('defmod GANotifier notify ' + regexDevices + ' "/usr/bin/node ' + clientPath + ' $NAME"');
+        console.log("Updated FHEM notifier for GA Virtual Proxy", result);
+
+        // fetch current STATE from FHEM devices
+        let parsedReadings = await this.queryStatusForDevices(fhemDevices);
+        // submit report state for devices
+        CommandFactory.Proxy.SendReport(parsedReadings);
+    }
 
     public getFHEMConfig() {
         var fhemConfig = config["fhem"];
@@ -42,30 +73,25 @@ export class CommandFhem extends CommandBase {
         });
     }
 
-    public async queryStatus(): Promise<object> {
-        let devices = this.getDevices();
+    public async queryStatusForDevices(devices: any[], defaultStruct: object = {}) {
+        const stateRequest = "{" + devices.map(x => {
+            return 'InternalVal("'+ x.fhem_device + '", "STATE", "")';
+        }).join('."|".') + "}";
 
-        let deviceResponseStruct = {
-            online: true // assume the device is always available
-        };
+        const stateResponse = await this.requestFHEM(stateRequest);
+        const parsedReadings = this.parseReadings(stateResponse.split('|'));
 
-        let cmdList = [];
         let result = {};
-        
-        devices.forEach(x => {
-            cmdList.push("InternalVal(\""+ x.fhem_device +"\", \"STATE\", \"\")");
+
+        devices.forEach((x, i) => {
+            result[x.id] = Object.assign(parsedReadings[i], defaultStruct);
         });
 
-        var command = "{ " + cmdList.join('."|".') + " }";
-
-        let content = await this.requestFHEM(command);
-        var contentParts = content.trim().split('|');
-        let parsedReadings = this.parseReadings(contentParts);
-
-        for(var i in devices) {
-            result[devices[i].id] = Object.assign(parsedReadings[i], deviceResponseStruct);
-        }
-
         return result;
+    }
+
+    public async queryStatus(): Promise<object> {
+        let devices = this.getDevices();
+        return await this.queryStatusForDevices(devices, { online: true });
     }
 }

@@ -1,5 +1,6 @@
 import * as config from './config.json';
 import { AssistantProxyClient } from './lib/protected/AssistantProxyClient.js';
+import { CommandFactory } from './lib/protected/CommandFactory';
 
 if(!config) {
    console.error("No configuration found"); 
@@ -16,4 +17,12 @@ if(!config.USER_ID) {
     process.exit(1);
 }
 
-new AssistantProxyClient();
+let isPrimary = true;
+
+var args = process.argv.slice(2);
+if (args.length > 0) {
+    isPrimary = false;
+    // individually load necessary modules
+    CommandFactory.loadModule('ReportFhem');
+}
+new AssistantProxyClient(isPrimary);

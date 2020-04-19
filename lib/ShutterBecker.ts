@@ -8,7 +8,7 @@ function sleep(ms){
     })
 }
 
-export class CommandShutterBecker extends CommandBase {
+export class ShutterBecker extends CommandBase {
     public async runCommand() {
         try {
             let moduleConfig = this.getModuleConfig();
@@ -43,24 +43,24 @@ export class CommandShutterBecker extends CommandBase {
 
             return true;
         } catch(err) {
-            console.error(this.getModuleName() + ': ' + err);
+            console.error(this.constructor.name + ': ' + err);
         }
         return false;
     }
 
     public validateConfig(conf) {
         if(!conf) {
-            console.error('Missing configuration in config.json for ' + this.getModuleName());
+            console.error('Missing configuration in config.json for ' + this.constructor.name);
             return false;
         }
 
         if(!conf.CENTRONIC_PATH) {
-            console.error('Missing CENTRONIC_PATH in config.json for ' + this.getModuleName());
+            console.error('Missing CENTRONIC_PATH in config.json for ' + this.constructor.name);
             return false;
         }
 
         if(!existsSync(conf.CENTRONIC_PATH)) {
-            console.error('The path CENTRONIC_PATH defined in config.json could not be found for ' + this.getModuleName());
+            console.error('The path CENTRONIC_PATH defined in config.json could not be found for ' + this.constructor.name);
             return false;
         }
 

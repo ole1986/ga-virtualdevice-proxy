@@ -10,6 +10,17 @@
             "name": "Launch Program",
             "program": "${workspaceFolder}/client.js",
             "preLaunchTask": "watcher"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program (ReportState)",
+            "program": "${workspaceFolder}/client.js",
+            "args": [
+                "DUEWI_A",
+                "off"
+            ],
+            "preLaunchTask": "watcher"
         }
     ]
 }

@@ -1,6 +1,7 @@
-export { CommandShutterFhemBecker } from './CommandShutterFhemBecker';
-export { CommandShutterBecker } from './CommandShutterBecker';
-export { CommandShutterFhemGeneric } from './CommandShutterFhemGeneric';
-export { CommandSwitchFhemGeneric } from './CommandSwitchFhemGeneric';
-export { CommandLightFhemGeneric } from './CommandLightFhemGeneric';
-export { CommandSwitchScript } from './CommandSwitchScript';
+export { ShutterFhemBecker } from './ShutterFhemBecker';
+export { ShutterBecker } from './ShutterBecker';
+export { ShutterFhemGeneric } from './ShutterFhemGeneric';
+export { SwitchFhemGeneric } from './SwitchFhemGeneric';
+export { LightFhemGeneric } from './LightFhemGeneric';
+export { SwitchScript } from './SwitchScript';
+export { ReportFhem } from './ReportFhem';

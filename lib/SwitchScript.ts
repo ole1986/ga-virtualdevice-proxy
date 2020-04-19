@@ -1,7 +1,7 @@
 import { CommandBase } from "./protected/CommandBase";
 import { execSync } from "child_process";
 
-export class CommandSwitchScript extends CommandBase {
+export class SwitchScript extends CommandBase {
     public async runCommand() {
         try {
             let config = this.getModuleConfig();

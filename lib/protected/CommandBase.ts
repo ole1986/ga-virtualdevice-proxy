@@ -1,38 +1,42 @@
 import * as config from '../../config.json';
 import { CommandFactory } from './CommandFactory.js';
 
-export interface CommandBaseInterface {
+export interface ICommandData {
+    params: any;
+    modes: any;
+    settings: any;
+    devices: any[];
+}
+
+export interface ICommandSync {
+    onDevicesSynced(): Promise<void>;
+}
+
+export interface ICommandBase {
     getModes(): any;
     getParameters(): any;
     getSettings(): any;
     getDevices(): any;
+    getSyncedDevices(): any[];
     runCommand(): Promise<boolean>;
     queryStatus(): Promise<object>;
     sendStatus(): Promise<void>;
     getFHEMConfig(): any;
-    getModuleConfig(): any;
-    getModuleName(): string;
-    getDeviceType(): string;
     validateConfig(conf: any);
+    setData(data: ICommandData | any)
 }
 
-export class CommandBase implements CommandBaseInterface {
-    private _data: any;
+export class CommandBase implements ICommandBase {
     private _moduleName: string;
-    private _deviceType: string;
+    private _data: ICommandData;
+    protected _devices: any[];;
 
-    constructor(moduleName: string, deviceType: string, data: any) {
-        this._data = data;
+    constructor(moduleName: string) {
         this._moduleName = moduleName;
-        this._deviceType = deviceType;
     }
 
     public getModuleName() {
-        return this._deviceType.charAt(0).toUpperCase() + this._deviceType.slice(1) + this._moduleName;
-    }
-
-    public getDeviceType() {
-        return this._deviceType
+        return this._moduleName;
     }
 
     public getModuleConfig() {
@@ -60,6 +64,10 @@ export class CommandBase implements CommandBaseInterface {
         return true;
     }
 
+    public setData(data: ICommandData | any) {
+        this._data = data;
+    }
+
     public getParameters(): any {
         return this._data.params || {};
     }
@@ -74,6 +82,10 @@ export class CommandBase implements CommandBaseInterface {
 
     public getDevices(): Array<any> {
         return this._data.devices || [];
+    }
+
+    public getSyncedDevices() {
+        return CommandFactory._devices;
     }
 
     public async runCommand(): Promise<boolean> {

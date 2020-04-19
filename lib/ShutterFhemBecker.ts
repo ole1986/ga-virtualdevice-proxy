@@ -1,6 +1,6 @@
 import { CommandFhem } from "./protected/CommandFhem";
 
-export class CommandShutterFhemBecker extends CommandFhem {
+export class ShutterFhemBecker extends CommandFhem {
     public async runCommand() {
         try {
             let params = this.getParameters();
@@ -40,7 +40,7 @@ export class CommandShutterFhemBecker extends CommandFhem {
             await this.requestFHEM(command);
             return true;
         } catch (err) {
-            console.error(this.getModuleName() + ': ' + err);
+            console.error(this.constructor.name + ': ' + err);
         }
         return false;
     }

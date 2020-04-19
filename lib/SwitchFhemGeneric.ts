@@ -1,6 +1,6 @@
 import { CommandFhem } from "./protected/CommandFhem";
 
-export class CommandSwitchFhemGeneric extends CommandFhem {
+export class SwitchFhemGeneric extends CommandFhem {
     public async runCommand() {
         try {
             let params = this.getParameters();
