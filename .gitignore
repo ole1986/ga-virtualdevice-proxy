@@ -3,3 +3,6 @@ dist
 
 # ignore the config.json
 config.json
+
+# ignore FHEMNOTIFIER file used to exchange events
+FHEMNOTIFIER

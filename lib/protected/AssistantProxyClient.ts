@@ -12,7 +12,7 @@ export class AssistantProxyClient extends WebSocket {
     private _onLoggedIn: Function;
     private _isPrimaryConnection: boolean;
 
-    constructor(isPrimary: boolean, onLoggedIn: EventHandlerNonNull = undefined) {
+    constructor(isPrimary: boolean = true, onLoggedIn: EventHandlerNonNull = undefined) {
         super(config.REMOTE_HOST);
 
         this._isPrimaryConnection = isPrimary;

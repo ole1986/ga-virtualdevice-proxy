@@ -17,12 +17,4 @@ if(!config.USER_ID) {
     process.exit(1);
 }
 
-let isPrimary = true;
-
-var args = process.argv.slice(2);
-if (args.length > 0) {
-    isPrimary = false;
-    // individually load necessary modules
-    CommandFactory.loadModule('ReportFhem');
-}
-new AssistantProxyClient(isPrimary);
+new AssistantProxyClient();

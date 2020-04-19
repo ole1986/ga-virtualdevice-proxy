@@ -5,37 +5,7 @@ import * as config from '../../config.json';
 import { CommandBase, ICommandSync } from './CommandBase.js';
 import { CommandFactory } from './CommandFactory';
 
-export class CommandFhem extends CommandBase implements ICommandSync {
-    static hashDevices: string;
-
-    public async onDevicesSynced(): Promise<void> {
-        const devices = this.getSyncedDevices();
-
-        // filter out only fhem related devices
-        const fhemDevices = devices.filter(x => x.hasOwnProperty('fhem_device'));
-        // prepare regulate expressed notifier for FHEM
-        const regexDevices = "(" + fhemDevices.map(x => x.fhem_device).join('|') + ")";
-        const hash = md5(regexDevices);
-
-        if (hash === CommandFhem.hashDevices) {
-            // ignore when its the same list
-            return;
-        }
-
-        // update hash
-        CommandFhem.hashDevices = hash;
-
-        const clientPath = process.cwd() + '/client.js';
-
-        const result = await this.requestFHEM('defmod GANotifier notify ' + regexDevices + ' "/usr/bin/node ' + clientPath + ' $NAME"');
-        console.log("Updated FHEM notifier for GA Virtual Proxy", result);
-
-        // fetch current STATE from FHEM devices
-        let parsedReadings = await this.queryStatusForDevices(fhemDevices);
-        // submit report state for devices
-        CommandFactory.Proxy.SendReport(parsedReadings);
-    }
-
+export class CommandFhem extends CommandBase {
     public getFHEMConfig() {
         var fhemConfig = config["fhem"];
 

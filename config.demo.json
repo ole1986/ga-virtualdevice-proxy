@@ -7,7 +7,8 @@
         "ShutterBecker",
         "SwitchFhemGeneric",
         "LightFhemGeneric",
-        "SwitchScript"
+        "SwitchScript",
+        "ReportFhem"
     ],
     "fhem": {
         "url": "",
