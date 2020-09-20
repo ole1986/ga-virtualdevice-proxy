@@ -18,7 +18,7 @@ export class ShutterFhemBecker extends CommandFhem {
                 direction = "DOWN";
             } else if (params.openPercent == 100) {
                 direction = "UP";
-            } else if (params.openPercent <= 50 || params!.updateToggleSettings!.intermediate_down) {
+            } else if (params.openPercent <= 50 || (params.updateToggleSettings && params.updateToggleSettings.intermediate_down)) {
                 direction = 'DOWN2';
             } else if (!params.start) {
                 direction = 'HALT';
