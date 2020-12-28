@@ -8,14 +8,27 @@ export class ShutterFhemGeneric extends CommandFhem {
             let devices = this.getDevices();
             let settings = this.getSettings();
 
-            var fhem_prefix = settings.prefix;
-
             // build commands
             var cmdList = [];
 
-            devices.forEach(item => {
-                cmdList.push('set '+fhem_prefix + '_' + item.alias + ' pct ' + params.openPercent);
-            });
+            var direction = "HALT"
+
+            if (params.openPercent == 0) {
+                direction = "down"
+            } else if (params.openPercent == 100) {
+                direction = "up"
+            } else if (!params.start) {
+                direction = "stop"
+            }
+
+            if (!modes.all) {
+                devices.forEach(item => {
+                    cmdList.push('set '+ item.fhem_device + ' ' + direction);
+                });
+            } else {
+                // broadcast channel
+                cmdList.push("set " + settings.all_shutters + ' ' + direction);
+            }
 
             var command = cmdList.join(' ; ');
 

@@ -1,4 +1,14 @@
 {
+    "settings": {
+        "all_shutters": {
+            "lang": {
+                "default": "All Shutters",
+                "de": "Alle Jalousien"
+            },
+            "hint": "FHEM device definition name (E.g ALL_Shutter)",
+            "type": "string"
+        }
+    },
     "devices":{
         "fhem_device": {
             "lang": {
