@@ -11,12 +11,12 @@ export class ShutterFhemGeneric extends CommandFhem {
             // build commands
             var cmdList = [];
 
-            var direction = "HALT"
+            var direction = "stop"
 
             if (params.openPercent == 0) {
-                direction = "down"
+                direction = "closed"
             } else if (params.openPercent == 100) {
-                direction = "up"
+                direction = "open"
             } else if (!params.start) {
                 direction = "stop"
             }

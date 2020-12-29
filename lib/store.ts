@@ -1,4 +1,3 @@
-export { ShutterFhemBecker } from './ShutterFhemBecker';
 export { ShutterBecker } from './ShutterBecker';
 export { ShutterFhemGeneric } from './ShutterFhemGeneric';
 export { SwitchFhemGeneric } from './SwitchFhemGeneric';
