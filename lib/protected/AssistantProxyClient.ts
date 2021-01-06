@@ -31,7 +31,9 @@ export class AssistantProxyClient extends WebSocket {
         this.on('pong', this.KeepAlive);
         this.on('close', (code, msg) => {
             clearInterval(this._timer);
-            console.log('Connection closed. ' + msg);
+            console.log('Connection closed (' + code + '). ' + msg);
+            console.log('Exiting...');
+            process.exit();
         });
 
         this.on('message', (x) => this.parseMessage(x));
